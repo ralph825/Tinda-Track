@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TindaTrack · Download</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        /* ---------- Body ---------- */
+        body {
+            background: linear-gradient(160deg, #f0fff7 0%, #ffffff 55%, #e8fbf1 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            margin: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            color: #0d2c1c;
+        }
+
+        /* ---------- Card ---------- */
+        .card {
+            background: #ffffff;
+            max-width: 640px;
+            width: 100%;
+            border-radius: 2rem;
+            padding: 3rem 2.25rem;
+            text-align: center;
+            border: 1px solid #e2f3ea;
+            box-shadow:
+                0 24px 48px -16px rgba(0, 130, 65, 0.22),
+                0 8px 20px -8px rgba(0, 130, 65, 0.12);
+            margin: auto;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* subtle decorative top bar */
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #00a651, #34d17f, #00a651);
+        }
+
+        /* ---------- Badge ---------- */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: #e6f9ef;
+            color: #0f5132;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 0.45rem 1.15rem;
+            border-radius: 999px;
+            border: 1px solid #b8e6cc;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .badge i {
+            color: #00a651;
+            font-size: 0.85rem;
+        }
+
+        /* ---------- Headings ---------- */
+        h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: #0a2a1a;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.85rem;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, #00a651, #007a3d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subhead {
+            font-size: 1.05rem;
+            color: #3f6a55;
+            font-weight: 400;
+            line-height: 1.6;
+            margin-bottom: 2.25rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px dashed #cdecdb;
+        }
+
+        .subhead strong {
+            color: #0f5132;
+            font-weight: 700;
+        }
+
+        /* ---------- App icon preview ---------- */
+        .app-icon {
+            width: 96px;
+            height: 96px;
+            margin: 0 auto 1.5rem;
+            border-radius: 24px;
+            background: linear-gradient(145deg, #00c25a, #007a3d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 2.6rem;
+            box-shadow: 0 14px 26px -10px rgba(0, 166, 81, 0.5);
+        }
+
+        /* ---------- Download button ---------- */
+        .download-btn {
+            background: #00a651;
+            color: #ffffff;
+            border: none;
+            border-radius: 999px;
+            padding: 1.15rem 2rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            cursor: pointer;
+            width: 100%;
+            max-width: 340px;
+            margin: 0 auto 0.85rem;
+            box-shadow: 0 16px 26px -10px rgba(0, 166, 81, 0.55);
+            transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .download-btn i {
+            font-size: 1.35rem;
+        }
+
+        .download-btn:hover {
+            background: #008f45;
+            transform: translateY(-2px);
+            box-shadow: 0 20px 32px -10px rgba(0, 166, 81, 0.6);
+        }
+
+        .download-btn:active {
+            transform: translateY(0) scale(0.98);
+            background: #007a3d;
+            box-shadow: 0 8px 14px -6px rgba(0, 122, 61, 0.55);
+        }
+
+        /* ---------- File hint ---------- */
+        .file-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.875rem;
+            color: #4d6b5c;
+            background: #f6fdf9;
+            border: 1px solid #d8f0e4;
+            padding: 0.4rem 0.95rem;
+            border-radius: 999px;
+            margin-bottom: 1.5rem;
+        }
+
+        .file-hint i {
+            color: #00a651;
+            font-size: 0.95rem;
+        }
+
+        /* ---------- Footer note ---------- */
+        .footer-note {
+            font-size: 0.82rem;
+            color: #7f9a8d;
+            letter-spacing: 0.02em;
+            margin-top: 0.5rem;
+        }
+
+        /* ---------- Responsive tweaks ---------- */
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+                align-items: flex-start;
+            }
+            .card {
+                padding: 2.25rem 1.35rem;
+                border-radius: 1.5rem;
+            }
+            h1 {
+                font-size: 1.85rem;
+            }
+            .subhead {
+                font-size: 1rem;
+                margin-bottom: 1.85rem;
+                padding-bottom: 1.6rem;
+            }
+            .download-btn {
+                font-size: 1.1rem;
+                padding: 1rem 1.5rem;
+            }
+            .app-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2.2rem;
+                border-radius: 20px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            .badge {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.95rem;
+            }
+        }
+
+        /* ---------- Modal ---------- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 40, 20, 0.55);
+            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background: #ffffff;
+            border-radius: 1.75rem;
+            max-width: 400px;
+            width: 100%;
+            padding: 2rem 1.75rem 1.75rem;
+            text-align: center;
+            border: 1px solid #d8f0e4;
+            box-shadow: 0 40px 70px -18px rgba(0, 80, 40, 0.5);
+            transform: scale(0.9) translateY(10px);
+            transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.15);
+            margin: auto;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: #e6f9ef;
+            border: 2px solid #a8e0c2;
+            color: #00a651;
+            font-size: 2.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .modal-box h3 {
+            font-size: 1.55rem;
+            font-weight: 800;
+            color: #0a2a1a;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.01em;
+        }
+
+        .modal-box p {
+            font-size: 1rem;
+            color: #3f6a55;
+            line-height: 1.55;
+            margin-bottom: 1.65rem;
+        }
+
+        .modal-box p strong {
+            color: #0f5132;
+            background: #e6f9ef;
+            padding: 0.1rem 0.4rem;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-btn {
+            flex: 1 1 0;
+            min-width: 120px;
+            border: none;
+            border-radius: 999px;
+            padding: 0.85rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .modal-btn.confirm {
+            background: #00a651;
+            color: #ffffff;
+            box-shadow: 0 10px 18px -8px rgba(0, 166, 81, 0.6);
+        }
+
+        .modal-btn.confirm:hover {
+            background: #008f45;
+            transform: translateY(-1px);
+        }
+
+        .modal-btn.cancel {
+            background: #f0faf5;
+            color: #0f5132;
+            border: 1px solid #b8e6cc;
+        }
+
+        .modal-btn.cancel:hover {
+            background: #e0f5ea;
+            border-color: #8ed4ad;
+        }
+
+        .modal-btn:active {
+            transform: scale(0.97);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="card">
+        <div class="badge">
+            <i class="fas fa-circle-check"></i> Now Available
+        </div>
+
+        <div class="app-icon">
+            <i class="fas fa-store"></i>
+        </div>
+
+        <h1>
+            Hi, I'm <span>Ralph Escala</span>
+        </h1>
+
+        <p class="subhead">
+            3rd Year IT student — building <strong>TindaTrack</strong>,<br>
+            a mobile app for sari-sari store owners.
+        </p>
+
+        <button class="download-btn" id="downloadButton" aria-label="Download TindaTrack APK">
+            <i class="fas fa-download"></i> Download APK
+        </button>
+
+        <div class="file-hint">
+            <i class="fas fa-file-arrow-down"></i> tindaTrack.apk
+        </div>
+
+        <p class="footer-note">
+            ⚡ Tap download, confirm, and enjoy TindaTrack!
+        </p>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirmationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-box">
+            <div class="modal-icon">
+                <i class="fas fa-download"></i>
+            </div>
+            <h3 id="modalTitle">Ready to download?</h3>
+            <p>
+                You're about to download <strong>tindaTrack.apk</strong>.<br>
+                Please allow "Install from unknown sources" on your device.
+            </p>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" id="cancelModalBtn" type="button">
+                    <i class="fas fa-xmark"></i> Cancel
+                </button>
+                <button class="modal-btn confirm" id="confirmDownloadBtn" type="button">
+                    <i class="fas fa-check"></i> Yes, download
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const downloadButton = document.getElementById('downloadButton');
+            const modal = document.getElementById('confirmationModal');
+            const cancelModalBtn = document.getElementById('cancelModalBtn');
+            const confirmDownloadBtn = document.getElementById('confirmDownloadBtn');
+
+            const APK_FILENAME = 'tindaTrack.apk';
+
+            function openModal() {
+                modal.classList.add('active');
+                confirmDownloadBtn.focus();
+            }
+
+            function closeModal() {
+                modal.classList.remove('active');
+                downloadButton.focus();
+            }
+
+            function triggerDownload() {
+                const link = document.createElement('a');
+                link.href = APK_FILENAME;
+                link.download = APK_FILENAME;
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                console.log('✅ Download started:', APK_FILENAME);
+            }
+
+            downloadButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                openModal();
+            });
+
+            cancelModalBtn.addEventListener('click', closeModal);
+
+            confirmDownloadBtn.addEventListener('click', function () {
+                closeModal();
+                setTimeout(triggerDownload, 120);
+            });
+
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) closeModal();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+        })();
+    </script>
+
+</body>
+</html>
